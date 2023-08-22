@@ -18,7 +18,7 @@ import gym
 
 
 def update():
-    for episode in range(1000):
+    for episode in range(100):
         # initial state
         state, info = env.reset()
         steps = 0
@@ -55,11 +55,11 @@ def update():
             if terminated or truncated:
                 print(f'---- episode = {episode}, steps = {steps}, result = {result} ----')
                 print(qtable.sort_index())
-                print(f'----------------------------------------------\n')
+                print('----------------------------------------------\n')
                 break
 
     # end of game
-    RL.save_qtable_to_csv('q-table.csv')
+    RL.save_qtable()
     print('game over')
 
 
@@ -82,8 +82,8 @@ if __name__ == "__main__":
     RL = QLearningTable(
         actions=list(range(env.action_space.n)),
         learning_rate=0.1,
-        # qtable_csv='./q-table.csv',
-        save_qtable=False,
+        load_qtable_from_csv=False,
+        save_qtable_to_csv=True,
     )
     update()
     env.close()

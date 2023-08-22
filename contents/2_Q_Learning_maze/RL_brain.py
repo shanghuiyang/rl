@@ -8,18 +8,21 @@ View more on my tutorial page: https://morvanzhou.github.io/tutorials/
 import numpy as np
 import pandas as pd
 
+Q_TABLE_CSV = 'q-table.csv'
+
 
 class QLearningTable:
-    def __init__(self, actions, learning_rate=0.01, reward_decay=0.9, e_greedy=0.9, qtable_csv='', save_qtable=False):
+    def __init__(self, actions, learning_rate=0.01, reward_decay=0.9, e_greedy=0.9, load_qtable_from_csv=False, save_qtable_to_csv=False):
         self.actions = actions  # a list
         self.lr = learning_rate
         self.gamma = reward_decay
         self.epsilon = e_greedy
-        self.save_qtable = save_qtable
+        self.load_qtable_from_csv = load_qtable_from_csv
+        self.save_qtable_to_csv = save_qtable_to_csv
         self.q_table = pd.DataFrame(columns=self.actions, dtype=np.float64)
-        if qtable_csv != '':
-            print(f'loading q-table from {qtable_csv}')
-            df = pd.read_csv('q-table.csv', index_col=0)
+        if load_qtable_from_csv:
+            print(f'loading q-table from ./{Q_TABLE_CSV}')
+            df = pd.read_csv(Q_TABLE_CSV, index_col=0)
             df.columns = df.columns.astype(int)
             self.q_table = df
             print('------------------ q-table ------------------')
@@ -73,7 +76,7 @@ class QLearningTable:
                 )
             self.q_table.loc[state] = new_row
 
-    def save_qtable_to_csv(self, csv):
-        if self.save_qtable:
+    def save_qtable(self):
+        if self.save_qtable_to_csv:
             self.q_table.sort_index(inplace=True)
-            self.q_table.to_csv(csv, index=True)
+            self.q_table.to_csv(Q_TABLE_CSV, index=True)
