@@ -83,7 +83,7 @@ if __name__ == "__main__":
         actions=list(range(env.action_space.n)),
         learning_rate=0.1,
         load_qtable_from_csv=False,
-        save_qtable_to_csv=True,
+        save_qtable_to_csv=False,
     )
     update()
     env.close()
