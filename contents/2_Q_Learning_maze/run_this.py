@@ -10,32 +10,32 @@ env = gym.make(
     is_slippery=False,
     max_episode_steps=600,
     render_mode="human",  # ansi, human
-    map_name='4x4',
-    desc=[
-        "SFFF",
-        "FFHF",
-        "FHGF",
-        "FFFF",
-    ],
-    # map_name='8x8',
+    # map_name='4x4',
     # desc=[
-    #     "SFFHFFFF",
-    #     "FHFFHFHF",
-    #     "FHFHFFHF",
-    #     "HFFHFHFF",
-    #     "FFHFFHFF",
-    #     "HFHFFHFH",
-    #     "HFFHFHFH",
-    #     "FHFFFHFG",
+    #     "SFFF",
+    #     "FFHF",
+    #     "FHGF",
+    #     "FFFF",
     # ],
+    map_name='8x8',
+    desc=[
+        "SFFHFFFF",
+        "FHFFHFHF",
+        "FHFHFFHF",
+        "HFFHFHFF",
+        "FFHFFHFF",
+        "HFHFFHFH",
+        "HFFHFHFH",
+        "FHFFFHFG",
+    ],
 )
 # env = env.unwrapped
 ql = QLearning(
     actions=list(range(env.action_space.n)),
     learning_rate=0.1,
     e_greedy=0.99,
-    load_qtable_from_csv=False,
-    save_qtable_to_csv=False,
+    load_qtable_from_csv=True,
+    save_qtable_to_csv=True,
 )
 
 # training
